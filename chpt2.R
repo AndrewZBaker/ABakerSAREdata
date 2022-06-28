@@ -45,3 +45,33 @@ text(toy_dis2_bilinear, digit=2)
 ###this area of the book, 2.3.4.1 pg 33, has instructions on how to input real datasets into R and visualize
 #Get satellite data from Leticia or Zoe to do this
 
+
+#Practice with huge rasters. Seeing how large I can get the file before crashing and generally how to set them up on my own
+
+library(raster)
+library(sp)
+set.seed(27)
+largeras <- raster(ncol=36, nrow=36, xmn=1, xmx=36, ymn=1, ymx=36)
+values(largeras) <-rpois(ncell(largeras), lambda=12)
+plot(largeras)
+mean(largeras)
+cellStats(largeras, mean)
+cellStats(largeras, var)
+
+
+largerras <- raster(ncol=1600, nrow=1600, xmn=1, xmx=1600, ymn=1, ymx=1600)
+values(largerras) <- rpois(ncell(largerras), lambda=8)
+plot(largerras)
+values(largerras) <- rpois(ncell(largerras), lambda=32)
+plot(largerras)
+smras <- aggregate(largerras, fact=8, fun=mean)
+plot(smras)
+plot(largerras)
+vsmras <- aggregate(largerras, fact=12, fun=mean)
+plot(vsmras)
+cellStats(vsmras, mean)
+cellStats(vsmras, var)
+cellStats(largerras, mean)
+cellStats(largerras, var)
+
+
